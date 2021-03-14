@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="googlebot" content="noindex">
+    <meta name="robots" content="noindex,nofollow">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <!-- <meta name="referrer" content="no-referrer"> -->
+    <meta http-equiv="Refresh" name="request">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>Renuve</title>
+    <style>
+      .check-renuve table{
+          text-align:  center;
+          border: solid 1px #000;
+      }
+      .check-renuve thead tr th{
+        text-align: center;
+        width: 20%;
+        border: solid 1px #000;
+      }
+      .check-renuve table tbody td{
+        border: solid 1px #000; 
+        padding-top: 4px;
+        padding-bottom: 4px;
+
+      }
+      .clearfix{
+        padding-top:10px; 
+        padding-bottom:10px; 
+      }
+      .check-renuve table tbody td i {
+         font-size: 16px;  
+      }
+
+      #total-renuve{
+        background-color: yellow;
+      }
+    
+    </style>
+  </head>
+  <body>
+<div class="container">
+      <div class="row">
+          <div class="col-md-6 col-md-offset-3 check-renuve">
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Site</th>
+                          <th>Impressions</th>
+                          <th>Renuve</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr id="phimhayplus-row">
+                          <td>PhimHayPlus.Org</td>
+                          <td></td>
+                          <td></td>
+                      </tr>
+                      <tr id="phimchat-row">
+                          <td>PhimChat.Org</td>
+                          <td></td>
+                          <td></td>
+                      </tr>
+                      <tr id="bilutivi-row">
+                          <td>BiluTivi.Net</td>
+                          <td></td>
+                          <td></td>
+                      </tr>
+                      <tr id="dongphim-row">
+                          <td>DongPhimz.Com</td>
+                          <td></td>
+                          <td></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          <div class="clearfix">
+          </div>
+          <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-4 col-xs-4">
+              <button type="button" class="btn btn-success pull-left" id="btn-refresh">Refresh</button>
+            </div>
+            <div class="col-md-4 col-xs-4 text-center">
+              <div id="total"></div>
+            </div>
+            <div class="col-md-4 col-xs-4">
+              <button type="button" class="btn btn-warning pull-right" id="btn-calculate">Calculate</button>
+            </div>
+            
+            
+            
+          </div>
+      </div>
+
+</div>
+    
+    <script>
+
+     var Renuve = function() {
+        this.token = undefined;
+        this.zoneId = undefined;
+        this.target = undefined;
+        this.impressions = undefined;
+        this.renuve = undefined;
+
+        this.roundDown = function (number, decimals) {
+            decimals = decimals || 0;
+            return ( Math.floor( number * Math.pow(10, decimals) ) / Math.pow(10, decimals) );
+        }
+
+        this.getApi = async function (){ 
+            const URL_API = 'http://api.bilutivi.net/api/check/';
+            let date = new Date().getTimezoneOffset(-720);
+                
+                queryUrl = URL_API + '?token=' + this.token + '&date=' + date +'&zoneId=' + this.zoneId;
+              
+            const result = fetch(queryUrl)
+                            .then(res => res.json())
+                            .catch(err => console.log('Fetch Error :-S', err));
+                            return result;
+          }
+
+          this.fresh = function () {
+            let mainTarget = document.getElementById(this.target);
+                this.impressions = mainTarget.querySelector('td:nth-child(2)');
+                this.impressions.innerHTML = `<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>`;
+                this.renuve = mainTarget.querySelector('td:nth-child(3)');
+                this.renuve.innerHTML = `<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>`;
+
+          }
+
+          this.fillData =  async function (){
+                
+                const result = await this.getApi(this.token,this.zoneId); 
+                
+
+                 if (!result.errors) {
+                    this.impressions.innerText = result.data.impressions;
+                    this.renuve.innerText = `$${this.roundDown(result.data.money,2)}`;
+                    this.renuve.setAttribute('data-renuve',this.roundDown(result.data.money,2));
+                 }else{
+                    this.impressions.innerHTML = `<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>`;
+                    this.renuve.innerHTML = `<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>`;
+                 }
+                
+          }
+          this.init = function() {
+              this.fresh()
+              this.fillData()
+          }
+
+
+          
+      }
+
+      
+
+      const TOKEN = [
+        'KEtez2iRc9Ab3v_7Yxj95pDkx_g0Bjsmz3aqKnSE9EXQ1ovArf2FEFzkI2pwpI20DH4TLGNreebike6jizFE56mluqGifDcewPM8Ft4jMXf2WlUlhzfcTDaMH9I2U8-s',
+        'wOdDcRqBt7QHga9GwLwE5DxiiL31ZO4E9s9LI9EsyY8zLn74oQC8K9r7DMogIb9ZoTEI-xiuWUs4zMmim0kxvVbZcQ5ln9kVXVSw72g67eHWNOveRq637eml-uKviblu'
+      ];
+      const ZONE_ID = [1807923,1807947,1798652,1793338];
+      const TARGET = ['phimchat-row','dongphim-row','phimhayplus-row','bilutivi-row'];
+
+      function run(){
+          for (let i = 0; i < ZONE_ID.length; i++) {
+            let renuve = new Renuve();
+                renuve.token = TOKEN[i%2];
+                renuve.zoneId = ZONE_ID[i];
+                renuve.target = TARGET[i];
+                renuve.init();
+        }
+      }
+
+      function calculateRenuve() {
+        let total = 0;
+          let elements = document.querySelectorAll('td[data-renuve]');
+            elements.forEach((node,index)=>{
+              let renuve = node.getAttribute('data-renuve');
+              total += parseFloat(renuve);
+
+            });
+            total = total.toFixed(2);
+            let elements_renuve = document.getElementById('total-renuve');
+
+                if (elements_renuve == null) {
+                  let table = document.querySelector('table tbody'),
+                    div = document.createElement('tr');
+                    div.setAttribute('id','total-renuve');
+                    div.innerHTML = `<td>Total</td><td></td><td>$${total}</td>`;
+                    table.appendChild(div);
+                }else{
+    
+                  elements_renuve.innerHTML = `<td>Total</td><td></td><td>$${total}</td>`;
+                }
+
+      }
+
+      window.onload = run;
+      let fresh = document.getElementById('btn-refresh'),
+          total = document.getElementById('btn-calculate');
+          total.onclick = calculateRenuve;
+          fresh.onclick = run;
+    </script>
+  </body>
+</html>
+
+

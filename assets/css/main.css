@@ -1,0 +1,62 @@
+body {
+    background: url('loading.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.info {
+
+    color: white;
+    padding: 10px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    font-size: 0px;
+}
+
+.info .server, .info .total, .info .p2p, .info .connected-peers .info .ip-peers {
+    display: none;
+}
+
+#video_container {
+    max-width: 100vw;
+
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+#video {
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+.jwplayer.jw-state-buffering .jw-display-icon-display .jw-icon {
+  -webkit-animation: spin 0.6s linear infinite !important;
+  animation: spin 0.6s linear infinite !important;
+}
+.jw-progress{
+  background-color: #58b95b !important;
+}
+.jw-state-idle .jw-controlbar{    
+      display: table !important;
+}
+.jw-controlbar{
+      background: transparent !important; 
+}
+.jw-slider-time .jw-cue{
+  background-color: #F7F056  !important;
+}
+.jw-text-track-cue {
+  line-height: 140% !important;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

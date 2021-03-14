@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>Starter Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+          <script type="text/javascript" src="https://cdn.rawgit.com/Marak/faker.js/master/examples/browser/js/faker.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"/>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-offset-3" style="margin-top: 40%;">
+          <div class="col-md-3 text-center">
+            <img id="captcha" src="" alt="" width="120px">
+            <button type="button" id="refresh-button" class="btn btn-warning btn-flat" style="margin-top: 10px"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+          </div>
+          <div class="col-md-6 text-center" style="margin-bottom:2rem;padding-bottom:10px ">
+
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" value="" id="captcha-value" placeholder="Captcha">
+                <input type="text" class="form-control" value="" id="ref-value" placeholder="Referrer" style="margin-top:10px ">
+               
+            </div>
+
+             <span class="input-group-btn" style="padding-top:10px ">
+                  <button type="button" id="auto-register" class="btn btn-success btn-flat">Auto Register</button>
+             </span>
+          </div>
+          <div class="clearfix">
+          </div>
+          <div class="col-md-12">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                </tr>
+              </thead>
+              <tbody id="logs-register">
+                
+              </tbody>
+            </table>
+          </div>      
+        </div>
+        
+
+      </div>
+    </div>
+    <script>
+      window.onload = () => {
+        let auto = new Auto();
+        auto.init();
+
+		$('#auto-register').click(()=>{
+			auto.register()
+			
+		})
+		$('#refresh-button').click(()=>{
+			auto.init();
+		})
+      };
+    </script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+        <script type="text/javascript" src="main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  </body>
+</html>

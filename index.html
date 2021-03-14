@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Stream Player BiluTiVi.Net</title>
+    <meta charset="UTF-8">
+    <!-- <meta name="referrer" content="no-referrer" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="assets/js/jwplayer_8_16.js"></script>
+    <script src="assets/js/p2p-media-loader-core.min.js"></script>
+    <script src="assets/js/p2p-media-loader-hlsjs.min.js"></script>
+    <script src="assets/js/hls.min.js"></script>
+    <script src="assets/js/jwplayer.hlsjs.min.js"></script>
+
+
+</head>
+<body>
+<div id="mediaplayer"></div>
+<script type="text/javascript" src="assets/js/main.js?v=1.02"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-117662356-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-117662356-2');
+</script>
+<script>
+    function createScript(link){
+          let s = document.createElement("script");
+              s.type = "text/javascript";
+              s.src = link;
+              return s;
+    }
+  let s = document.createElement("script");
+  if (navigator.userAgent.match(/Android/i)
+          || navigator.userAgent.match(/webOS/i)
+          || navigator.userAgent.match(/iPhone/i)
+          || navigator.userAgent.match(/iPad/i)
+          || navigator.userAgent.match(/iPod/i)
+          || navigator.userAgent.match(/BlackBerry/i)
+          || navigator.userAgent.match(/Windows Phone/i)
+          ){
+    console.log('Watching on mobile !')
+  }else{
+    /*let s = createScript('http://livezombymil.com/aas/r45d/vki/1807947/tghr.js'),
+        v = createScript('http://dmmzkfd82wayn.cloudfront.net/?kzmmd=918528');
+      $("head").append(s);
+      $("head").append(v);*/
+  }
+</script>
+
+</body>
+</html>
