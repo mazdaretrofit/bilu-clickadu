@@ -117,9 +117,10 @@
 
         this.getApi = async function (){ 
             const URL_API = 'http://api.bilutivi.net/api/check/';
+            const HASH = 'f1b634d53acc9643e28c6a6f61a07f0a';
             let date = new Date().getTimezoneOffset(-720);
                 
-                queryUrl = URL_API + '?token=' + this.token + '&date=' + date +'&zoneId=' + this.zoneId;
+                queryUrl = URL_API + '?token=' + this.token + '&hash='+ HASH +'&date=' + date +'&zoneId=' + this.zoneId;
               
             const result = fetch(queryUrl)
                             .then(res => res.json())
