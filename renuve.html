@@ -128,9 +128,14 @@
         this.getApi = async function (){ 
             const URL_API = 'http://api.bilutivi.net/api/check/';
             const HASH = 'f1b634d53acc9643e28c6a6f61a07f0a';
-            let date = new Date().getTimezoneOffset(-720);
+            // E.g.
+			let date = new Date(),
+			 	now = this.changeTimezone(date, "EST"),
+			 	today = ('0' + now.getDate()).slice(-2)+'-'+('0' + Number(now.getMonth()+1)).slice(-2)+'-'+now.getFullYear();
+
+
                 
-                queryUrl = URL_API + '?token=' + this.token + '&hash='+ HASH +'&date=' + date +'&zoneId=' + this.zoneId;
+                queryUrl = URL_API + '?token=' + this.token + '&hash='+ HASH +'&date='+today+'&zoneId=' + this.zoneId;
               
             const result = fetch(queryUrl)
                             .then(res => res.json())
@@ -146,6 +151,20 @@
                 this.renuve.innerHTML = `<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>`;
 
           }
+          this.changeTimezone = function(date, ianatz) {
+
+  			  // suppose the date is 12:00 UTC
+  			  let options= {day:'numeric', month:'long', year:"numeric", timeZone:ianatz},
+			   	  invdate = new Date(date.toLocaleString('en-US', options));
+
+			  // then invdate will be 07:00 in Toronto
+			  // and the diff is 5 hours
+			  var diff = date.getTime() - invdate.getTime();
+
+			  // so 12:00 in Toronto is 17:00 UTC
+			  return new Date(date.getTime() - diff); // needs to substract
+
+			}
 
           this.fillData =  async function (){
                 
@@ -219,6 +238,10 @@
           total = document.getElementById('btn-calculate');
           total.onclick = calculateRenuve;
           fresh.onclick = run;
+
+          
+
+
     </script>
   </body>
 </html>
